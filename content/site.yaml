@@ -1,0 +1,35 @@
+# 公开站点资料。修改后重新构建即可发布，不需要编辑组件代码。
+# 私密令牌、密码和 Cookie 不应放在这里。
+name: 心安之地
+tagline: 把喜欢的事，慢慢留在这里。
+description: 记录文字、日常与思考，给自己留一处心安之地。
+# 完整正式地址，可含仓库子路径；GitHub Pages 部署时自动覆盖。
+url: https://zh-processor.github.io/Luck7
+
+author:
+  name: 心安之地
+  bio: 记录文字、日常与思考。
+  github: https://github.com/zh-Processor
+  email: processorlee@gmail.com
+  # 头像可使用 HTTPS 地址或 public/ 下的路径，例如 /images/avatar.png。
+  avatar: ''
+
+home:
+  eyebrow: WORDS & LITTLE MOMENTS
+  title: 世界很大，
+  emphasis: 这里刚好。
+  description:
+    - 把喜欢的事，慢慢留在这里。
+    - 记一些日常，写一点思考，留一点自己的时间。
+    - 愿你也能在这个小角落，找到片刻心安。
+  quietNote: 灯亮着，书翻着，慢慢读就好。
+
+comments:
+  # 为 Luck7 安装 giscus App 后改为 true。
+  enabled: false
+  # 从 https://giscus.app/zh-CN 复制公开标识，也可通过部署环境变量覆盖。
+  repo: zh-Processor/Luck7
+  repoId: R_kgDOVU2N1A
+  category: Announcements
+  categoryId: DIC_kwDOVU2N1M4DJbdc
+  reactions: false
