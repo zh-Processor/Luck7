@@ -37,7 +37,8 @@ jobs:
         run: npm run build
         env:
           VITE_BASE_PATH: ${{ steps.pages.outputs.base_path }}/
-          VITE_SITE_URL: ${{ steps.pages.outputs.base_url }}
+          # Pages may report HTTP while a new domain is awaiting its certificate.
+          VITE_SITE_URL: https://${{ steps.pages.outputs.host }}${{ steps.pages.outputs.base_path }}
           VITE_GISCUS_REPO: ${{ vars.GISCUS_REPO }}
           VITE_GISCUS_REPO_ID: ${{ vars.GISCUS_REPO_ID }}
           VITE_GISCUS_CATEGORY: ${{ vars.GISCUS_CATEGORY }}

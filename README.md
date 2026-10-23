@@ -2,7 +2,7 @@
 
 以「暮色书房」为主题的静态个人博客：记录文字、日常与思考，和窗边的小安一起安静待一会儿。站名来自对许嵩音乐的喜爱。
 
-项目仓库为 [zh-Processor/Luck7](https://github.com/zh-Processor/Luck7)，站点地址为 [心安之地](https://zh-processor.github.io/Luck7/)。内容可以在本地写作和预览，推送到 `main` 后由 GitHub Actions 构建并发布。
+项目仓库为 [zh-Processor/Luck7](https://github.com/zh-Processor/Luck7)，正式域名为 [心安之地](https://luck7.art/)。内容可以在本地写作和预览，推送到 `main` 后由 GitHub Actions 构建并发布。
 
 ## 本地运行
 
@@ -185,6 +185,8 @@ comments:
 4. 工作流执行测试、构建并发布 `dist/`，从 Pages 配置读取正式地址与仓库子路径。
 
 用户站点、仓库项目站点和已在 Pages 中配置的自定义域名都使用同一套工作流。如在 Actions 中配置评论，使用 Repository variables：`GISCUS_REPO`、`GISCUS_REPO_ID`、`GISCUS_CATEGORY`、`GISCUS_CATEGORY_ID`。
+
+当前自定义域名为 `luck7.art`。修改 Pages 的 Custom domain 后需重新部署；工作流根据域名与路径生成 HTTPS 正式链接，即使新域名仍在等待证书，也能完成构建。DNS 生效并签发证书后，在 Pages 设置中开启 Enforce HTTPS。
 
 部署到其他静态服务器时，可在 `.env.local` 设置 `VITE_SITE_URL` 与 `VITE_BASE_PATH` 后重新构建。前者为含仓库路径的完整正式地址，例如 `https://username.github.io/blog`；后者对应 `/blog/`。也可以在 `content/site.yaml` 的 `url` 填写正式地址，非空 `VITE_SITE_URL` 优先。
 
