@@ -14,6 +14,14 @@ describe('giscus readiness messages', () => {
     expect(nextGiscusStatus('ready', { giscus: { error: 'Discussion not found' } })).toBe('ready');
   });
 
+  it('does not treat the compatibility error on normal sign-out as a failure', () => {
+    const signOut = { giscus: { signOut: true, error: 'State has expired (user signed out).' } };
+    expect(nextGiscusStatus('ready', signOut)).toBe('ready');
+    expect(nextGiscusStatus('loading', signOut)).toBe('loading');
+    expect(nextGiscusStatus('error', signOut)).toBe('error');
+    expect(nextGiscusStatus('ready', { giscus: { error: 'State has expired' } })).toBe('error');
+  });
+
   it('reports real errors and never clears them on a subsequent resize', () => {
     const error = { giscus: { error: 'Repository not found', resizeHeight: 320 } };
     expect(nextGiscusStatus('loading', error)).toBe('error');

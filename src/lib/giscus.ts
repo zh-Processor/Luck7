@@ -6,6 +6,8 @@ export function nextGiscusStatus(current: GiscusStatus, data: unknown): GiscusSt
   if (current === 'error' || !data || typeof data !== 'object' || !('giscus' in data)) return current;
   const message = data.giscus;
   if (!message || typeof message !== 'object') return current;
+  // Normal sign-out includes a compatibility error; the client reloads the widget.
+  if ('signOut' in message && message.signOut === true) return current;
   if ('error' in message && typeof message.error === 'string' && message.error) {
     // A new article has no discussion until its first comment; this is normal.
     return /discussion not found/i.test(message.error) ? current : 'error';

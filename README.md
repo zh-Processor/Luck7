@@ -151,7 +151,7 @@ npm run new:note -- --text "另一条记录。" --mood 随想
 
 ## 评论配置
 
-仓库已开启 Discussions，公开仓库与分类标识保存在 `content/site.yaml`。目前 `comments.enabled: false`：为 `zh-Processor/Luck7` 安装 giscus App 后，将其改为 `true` 并推送即可启用。只有填写有效 `repo`、`repoId`、`categoryId` 并开启评论后，文章页才出现评论入口。
+仓库已开启 Discussions，giscus App 已授权 `zh-Processor/Luck7`，全站评论已启用。公开仓库与分类标识保存在 `content/site.yaml`，评论归入 Announcements 分类。文章页点击“打开评论”后加载留言区，首条留言会自动创建对应的 Discussion，无需手动为每篇文章创建讨论。
 
 准备启用时：
 

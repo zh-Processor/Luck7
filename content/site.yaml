@@ -25,8 +25,8 @@ home:
   quietNote: 灯亮着，书翻着，慢慢读就好。
 
 comments:
-  # 为 Luck7 安装 giscus App 后改为 true。
-  enabled: false
+  # giscus 已授权 Luck7；设为 false 可关闭全站评论。
+  enabled: true
   # 从 https://giscus.app/zh-CN 复制公开标识，也可通过部署环境变量覆盖。
   repo: zh-Processor/Luck7
   repoId: R_kgDOVU2N1A
