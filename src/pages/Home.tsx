@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { ArrowDown, ArrowRight, ArrowUpRight, BookOpen, Coffee, Pin, Sprout } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, BookOpen, Coffee, Pin, Sprout } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { asset, site } from '../config/site';
 import { featured, formatDate, notes, posts } from '../lib/content';
@@ -31,7 +31,6 @@ export function Home() {
       <section className="recent-posts" aria-labelledby="recent-title">
         <div className="section-heading"><h2 id="recent-title">最近写下的<span className="heading-dot">.</span></h2><span>让每个普通日子，都有迹可循</span></div>
         <div className="recent-list">{recent.length ? recent.map(post => <PostCard key={post.slug} post={post} />) : <div className="quiet-empty"><BookOpen size={25} /><p>第一篇文字，正在酝酿。</p></div>}</div>
-        {posts.length > 0 && <Link className="all-posts-link" to="/posts/">去文章里逛逛<ArrowRight size={16} /></Link>}
       </section>
       <aside className="home-sidebar">
         <section className="author-card">
@@ -41,6 +40,9 @@ export function Home() {
         {latestNote && <section className="little-moment"><h3><Sprout size={16} />心安时刻</h3><blockquote>{latestNote.text}</blockquote><Link to="/notes/">{formatDate(latestNote.date)}<ArrowUpRight size={12} /></Link></section>}
       </aside>
     </div>
-    <section className="closing-note container"><span>✧</span><p>这里没有什么大事，<br />只有认真生活留下的小小回声。</p><Link to={latestNote ? '/notes/' : '/about/'} aria-label={latestNote ? '去看碎碎念' : '关于这个博客'}><ArrowDown size={17} /></Link></section>
+    <section className="home-outro container">
+      <div className="home-outro-note"><span aria-hidden="true">✧</span><p>这里没有什么大事，<br />只有认真生活留下的小小回声。</p></div>
+      {posts.length > 0 && <Link className="home-continue-link" to="/posts/"><span><strong>去文章里逛逛</strong><small>慢慢读，慢慢发现</small></span><ArrowUpRight size={18} aria-hidden="true" /></Link>}
+    </section>
   </>;
 }
