@@ -3,7 +3,6 @@ title: 一个轻一点的博客，可以走得更远
 slug: a-smaller-static-blog
 description: 用静态页面保存文字，把复杂留给真正需要的地方。
 date: '2026-10-10'
-category: 技术笔记
 tags: [静态站点, 写作, GitHub]
 cover: window
 sample: true
@@ -18,7 +17,6 @@ sample: true
 ```yaml
 title: 给自己，留一处心安之地
 date: '2026-10-23'
-category: 随想
 tags: [写作, 生活]
 comments: true
 ```

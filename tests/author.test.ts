@@ -27,7 +27,7 @@ describe('authoring command validation', () => {
     expect(() => formatShanghaiDate('bad')).toThrow(/日期/);
   });
   it('accepts explicit commands and rejects unknown, repeated or missing values', () => {
-    expect(parseAuthorArgs(['post', '--title=你好：世界', '--slug', 'my-post', '--category', '技术'])).toEqual({ command: 'post', title: '你好：世界', slug: 'my-post', category: '技术' });
+    expect(parseAuthorArgs(['post', '--title=你好：世界', '--slug', 'my-post', '--tags', '技术,写作'])).toEqual({ command: 'post', title: '你好：世界', slug: 'my-post', tags: '技术,写作' });
     expect(parseAuthorArgs(['note', '--text=-- a literal note'])).toEqual({ command: 'note', text: '-- a literal note' });
     for (const args of [['publish'], ['post'], ['post', '--title', '--slug', 'x'], ['note', '--text', ''], ['note', '--text', 'a', '--text', 'b'], ['note', '--unknown', 'x'], ['post', 'hello']]) expect(() => parseAuthorArgs(args), args.join(' ')).toThrow();
   });
@@ -41,11 +41,11 @@ describe('authoring command validation', () => {
 
 describe('draft article creation', () => {
   it('creates a valid unpublished Markdown draft and never fabricates a description', async () => {
-    const result = await createPost({ title: '标题：含有 "引号"\n和换行', slug: 'first-post' }, { cwd, now: date });
+    const result = await createPost({ title: '标题：含有 "引号"\n和换行', slug: 'first-post', tags: ' 写作，日常,写作 ' }, { cwd, now: date });
     expect(result).toMatchObject({ kind: 'post', draft: true, date: '2026-10-24' });
     const raw = await readFile(result.path, 'utf8');
     const frontmatter = parse(raw.split('---\n')[1]);
-    expect(frontmatter).toMatchObject({ title: '标题：含有 "引号"\n和换行', slug: 'first-post', date: '2026-10-24', category: '随想', draft: true, sample: false, comments: true });
+    expect(frontmatter).toMatchObject({ title: '标题：含有 "引号"\n和换行', slug: 'first-post', date: '2026-10-24', tags: ['写作', '日常'], draft: true, sample: false, comments: true });
     expect(frontmatter.description).toBeUndefined();
     expect(parsePost(raw, result.path)).toBeNull();
     expect(parsePost(raw.replace('draft: true', 'draft: false'), result.path)?.title).toBe(frontmatter.title);

@@ -11,8 +11,7 @@ vi.mock('../src/lib/content', async importOriginal => {
       slug: `archive-${String(number).padStart(2, '0')}`,
       title: `归档文章 ${String(number).padStart(2, '0')}`,
       description: number % 3 === 0 ? '窗边札记：一杯热茶。' : '静态页面里的日常记录。',
-      category: number <= 11 ? '技术笔记' : '生活手记',
-      tags: number % 2 === 0 ? ['生活'] : ['前端'],
+      tags: [number <= 11 ? '写作' : '读书', number % 2 === 0 ? '生活' : '前端'],
       date: number <= 8 ? `2026-10-${24 - number}` : `2025-11-${30 - number}`,
       cover: 'window',
       minutes: 1,
@@ -28,8 +27,7 @@ vi.mock('../src/lib/content', async importOriginal => {
   return {
     ...actual,
     posts: actual.posts,
-    categories: ['全部', '技术笔记', '生活手记'],
-    tags: ['前端', '生活'],
+    tags: ['写作', '读书', '前端', '生活'],
   };
 });
 
@@ -68,16 +66,20 @@ describe('article archive URL pagination and filters', () => {
     expect(paginationButton(html, '下一页')).toContain('disabled');
   });
 
-  it('paginates the category results rather than slicing the unfiltered archive', () => {
-    const html = archive({ category: '技术笔记', page: '2' });
+  it('paginates tag results and displays links to each article tag', () => {
+    const html = archive({ tag: '写作', page: '2' });
     expect(visibleSlugs(html)).toEqual(['archive-11']);
     expect(html).toContain('11 篇文字');
     expect(html).toContain('第 2 / 2 页');
 
-    const smallerCategory = archive({ category: '生活手记', page: '2' });
-    expect(visibleSlugs(smallerCategory)).toEqual(['archive-12']);
-    expect(smallerCategory).toContain('1 篇文字');
-    expect(smallerCategory).not.toContain('aria-label="文章分页"');
+    const smallerTag = archive({ tag: '读书', page: '2' });
+    expect(visibleSlugs(smallerTag)).toEqual(['archive-12']);
+    expect(smallerTag).toContain('1 篇文字');
+    expect(smallerTag).toContain('href="/posts/?tag=%E8%AF%BB%E4%B9%A6"');
+    expect(smallerTag).toContain('#读书');
+    expect(smallerTag).not.toContain('?category=');
+    expect(smallerTag).not.toContain('文章分类');
+    expect(smallerTag).not.toContain('aria-label="文章分页"');
   });
 
   it('recalculates the total and clamps a page URL after a search narrows the results', () => {
@@ -88,8 +90,8 @@ describe('article archive URL pagination and filters', () => {
     expect(html).not.toContain('aria-label="文章分页"');
   });
 
-  it('applies search, category, tag, and year together from a shared archive URL', () => {
-    const html = archive({ q: '窗边札记', category: '技术笔记', tag: '生活', year: '2026', page: '7' });
+  it('applies search, tag, and year together from a shared archive URL', () => {
+    const html = archive({ q: '窗边札记', tag: '生活', year: '2026', page: '7' });
     expect(visibleSlugs(html)).toEqual(['archive-06']);
     expect(html).toContain('1 篇文字');
     expect(html).not.toContain('aria-label="文章分页"');

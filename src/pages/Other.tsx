@@ -21,7 +21,7 @@ export function Notes() {
 export function About() {
   return <div className="page-container container about-page">
     <header className="page-intro"><div className="eyebrow">ABOUT THIS LITTLE PLACE</div><h1>很高兴，在这里遇见你<span>.</span></h1><p>隔着屏幕，也可以认识一个有趣的灵魂。</p></header>
-    <section className="about-hello"><div><span className="post-category">你好，欢迎来坐坐</span><h2>{site.author.name}</h2><p>{site.author.bio}</p><div className="about-contacts">
+    <section className="about-hello"><div><span className="intro-label">你好，欢迎来坐坐</span><h2>{site.author.name}</h2><p>{site.author.bio}</p><div className="about-contacts">
       {site.author.github && <a className="button button-secondary" href={site.author.github} target="_blank" rel="noopener noreferrer"><Github size={16} />GitHub<ArrowUpRight size={14} /></a>}
       {site.author.email && <a className="button button-secondary" href={`mailto:${site.author.email}`}><Mail size={16} />写封信</a>}
     </div></div><StudyScene /></section>

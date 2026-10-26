@@ -156,20 +156,19 @@ kbd { font: 11px var(--sans); color: var(--faint); line-height: 1.6; border: 1px
 .featured-post .eyebrow { font-size: 12px; letter-spacing: 1px; }
 .featured-post h2 { display: flex; align-items: center; gap: 16px; font-family: var(--serif); font-weight: 500; font-size: 28px; line-height: 1.5; margin: 13px 0 9px; }
 .featured-post h2 svg { margin-left: auto; color: var(--blue); }
+.featured-post h2 a { display: flex; align-items: center; gap: 16px; width: 100%; }
+.featured-post h2 a:hover { color: var(--blue); }
 .featured-post p { font-size: 13px; line-height: 1.9; color: var(--muted); }
 .featured-post .post-meta { margin-top: 19px; }
-.feature-read { margin-left: auto; color: var(--blue); }
+.feature-read { display: inline-flex; align-items: center; gap: 4px; margin-left: auto; color: var(--blue); }
 .featured-cover { height: 151px; border-radius: 5px; }
 .home-content { display: grid; grid-template-columns: minmax(0, 1fr) 255px; column-gap: 63px; padding-top: 59px; }
-.category-tabs { display: flex; align-items: center; flex-wrap: wrap; gap: 5px 10px; margin: 21px 0 2px; }
-.category-tabs button { display: inline-flex; align-items: center; min-height: 44px; padding: 6px 13px; color: var(--muted); border-radius: 5px; font-size: 13px; }
-.category-tabs button:first-child { margin-left: -12px; }
-.category-tabs button[aria-pressed="true"] { background: var(--soft); color: var(--blue); }
-.category-tabs button:hover { color: var(--blue); background: var(--soft); }
 .post-card { padding: 27px 0; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: minmax(0, 1fr) 155px; gap: 25px; align-items: center; }
 .post-card-text { min-width: 0; }
-.post-category { display: inline-flex; align-items: center; min-height: 30px; color: var(--green); font-size: 12px; letter-spacing: .5px; }
-a.post-category:hover { text-decoration: underline; text-underline-offset: 4px; }
+.intro-label { display: inline-flex; align-items: center; min-height: 30px; color: var(--green); font-size: 12px; letter-spacing: .5px; }
+.post-card-tags { display: flex; flex-wrap: wrap; gap: 0 14px; margin-top: 10px; }
+.post-card-tags a { display: inline-flex; align-items: center; min-height: 34px; max-width: 100%; color: var(--green); font-size: 12px; line-height: 1.6; overflow-wrap: anywhere; }
+.post-card-tags a:hover { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
 .post-card h3 { font-family: var(--serif); font-size: 21px; line-height: 1.6; font-weight: 600; margin: 3px 0 9px; }
 .post-card h3 a { display: inline; }
 .post-card h3 svg { margin-left: 7px; opacity: 0; color: var(--blue); transition: opacity .2s, transform .2s; }
@@ -235,7 +234,6 @@ a.post-category:hover { text-decoration: underline; text-underline-offset: 4px; 
 .search-field input { width: 100%; flex: 1; min-height: 35px; background: transparent; border: 0; outline: 0; font-size: 14px; padding: 0; }
 .search-field input:focus-visible { outline: 0; }
 .archive-controls { display: flex; align-items: center; justify-content: space-between; gap: 15px; border-bottom: 1px solid var(--line); padding: 13px 0 10px; }
-.archive-controls .category-tabs { margin: 0; }
 .results-count { color: var(--muted); white-space: nowrap; font-size: 12px; }
 .active-filters { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding-top: 16px; }
 .active-filters button { display: flex; align-items: center; gap: 8px; min-height: 38px; padding: 5px 13px; background: var(--soft); border-radius: 5px; font-size: 12px; color: var(--blue); }
@@ -585,8 +583,7 @@ a.post-category:hover { text-decoration: underline; text-underline-offset: 4px; 
   .feature-read { display: none !important; }
   .home-content { display: block; padding-top: 40px; }
   .section-heading h2 { font-size: 23px; }
-  .category-tabs { margin-top: 15px; gap: 4px; }
-  .category-tabs button { font-size: 13px; padding-inline: 13px; }
+  .post-card-tags a { min-height: 44px; }
   .post-card { grid-template-columns: minmax(0,1fr) 130px; gap: 20px; padding-block: 24px; }
   .post-card h3 { font-size: 20px; margin-top: 3px; }
   .post-card p { font-size: 13px; }
@@ -606,9 +603,6 @@ a.post-category:hover { text-decoration: underline; text-underline-offset: 4px; 
   .archive-sidebar section + section { margin: 0; }
   .archive-aside-note { display: none; }
   .archive-controls { flex-wrap: nowrap; }
-  .archive-controls .category-tabs { gap: 0; }
-  .archive-controls .category-tabs button { padding-inline: 10px; }
-  .archive-controls .category-tabs button:first-child { margin-left: -10px; }
   .results-count { margin: 0; }
   .article-container { padding-top: 24px; padding-bottom: 54px; }
   .article-header { margin-top: 19px; margin-bottom: 27px; }
@@ -775,7 +769,7 @@ a.post-category:hover { text-decoration: underline; text-underline-offset: 4px; 
 /* Small functional text remains readable even on compact layouts. */
 .sample-label, .note-sample, .friend-card small, .footer-right > span, .site-footer p, .search-help, .setting-toggle small, .theme-option, .post-meta, .featured-post .post-meta, .post-card .post-meta, .hero-quiet-note, .article-tools > .text-button, .comments-section .section-heading > span { font-size: 12px; }
 .icon-button, .header-tools .icon-button, .font-tools .icon-button { min-width: 44px; width: 44px; min-height: 44px; }
-.post-category, .article-tags a, .active-filters button, .little-moment a { min-height: 44px; }
+.article-tags a, .active-filters button, .little-moment a { min-height: 44px; }
 .comment-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 18px; }
 .comment-actions > a { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; color: var(--blue); }
 .comment-error { margin-top: 20px; padding: 20px; border: 1px solid var(--line); border-radius: 6px; background: var(--card); }

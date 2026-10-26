@@ -1,5 +1,5 @@
 export interface AuthorOptions { cwd?: string; now?: Date | string | number; lockTimeoutMs?: number }
-export interface PostInput { title: string; slug: string; category?: string }
+export interface PostInput { title: string; slug: string; tags?: string }
 export interface NoteInput { text: string; mood?: string }
 export interface PostResult { kind: 'post'; path: string; slug: string; date: string; draft: true }
 export interface NoteResult { kind: 'note'; path: string; id: string; date: string }

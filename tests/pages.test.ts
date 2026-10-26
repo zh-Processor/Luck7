@@ -15,7 +15,7 @@ vi.mock('../src/lib/site-data', async importOriginal => {
 
 vi.mock('../src/lib/content', async importOriginal => {
   const actual = await importOriginal<typeof import('../src/lib/content')>();
-  return { ...actual, posts: [], notes: [], featured: undefined, categories: ['全部'], tags: [], filterPosts: () => [] };
+  return { ...actual, posts: [], notes: [], featured: undefined, tags: [], filterPosts: () => [] };
 });
 
 import { App } from '../src/App';

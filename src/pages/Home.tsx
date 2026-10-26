@@ -1,15 +1,14 @@
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { ArrowDown, ArrowRight, ArrowUpRight, BookOpen, Coffee, Pin, Sprout } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { asset, site } from '../config/site';
-import { categories, featured, formatDate, notes, posts } from '../lib/content';
+import { featured, formatDate, notes, posts } from '../lib/content';
 import { Cover, StudyScene } from '../components/Scene';
 import { PostCard } from '../components/PostCard';
 
 export function Home() {
-  const [category, setCategory] = useState('全部');
   const showFeatured = Boolean(featured && posts.length > 1);
-  const recent = posts.filter(post => (!showFeatured || category !== '全部' || post.slug !== featured?.slug) && (category === '全部' || post.category === category)).slice(0, 4);
+  const recent = posts.filter(post => !showFeatured || post.slug !== featured?.slug).slice(0, 4);
   const latestNote = notes[0];
   return <>
     <section className="hero container">
@@ -23,16 +22,15 @@ export function Home() {
       <StudyScene />
     </section>
     {showFeatured && featured && <section className="container">
-      <Link className="featured-post" to={`/posts/${featured.slug}/`}>
-        <div><span className="eyebrow"><Pin size={13} />写在前面</span><h2>{featured.title}<ArrowUpRight size={22} /></h2><p>{featured.description}</p><div className="post-meta"><span>{featured.category}</span><span>{featured.minutes} 分钟阅读</span><span className="feature-read">阅读全文<ArrowRight size={13} /></span></div></div>
-        <Cover kind={featured.cover} className="featured-cover" />
-      </Link>
+      <article className="featured-post">
+        <div><span className="eyebrow"><Pin size={13} />写在前面</span><h2><Link to={`/posts/${featured.slug}/`}>{featured.title}<ArrowUpRight size={22} /></Link></h2><p>{featured.description}</p>{featured.tags.length > 0 && <div className="post-card-tags" aria-label="文章标签">{featured.tags.map(tag => <Link key={tag} to={`/posts/?tag=${encodeURIComponent(tag)}`}>#{tag}</Link>)}</div>}<div className="post-meta"><span>{featured.minutes} 分钟阅读</span><Link className="feature-read" to={`/posts/${featured.slug}/`}>阅读全文<ArrowRight size={13} /></Link></div></div>
+        <Link to={`/posts/${featured.slug}/`} aria-label={`阅读：${featured.title}`} tabIndex={-1}><Cover kind={featured.cover} className="featured-cover" /></Link>
+      </article>
     </section>}
     <div className="home-content container">
       <section className="recent-posts" aria-labelledby="recent-title">
         <div className="section-heading"><h2 id="recent-title">最近写下的<span className="heading-dot">.</span></h2><span>让每个普通日子，都有迹可循</span></div>
-        {posts.length > 0 && <div className="category-tabs" aria-label="首页文章分类">{categories.map(item => <button type="button" key={item} aria-pressed={category === item} onClick={() => setCategory(item)}>{item}</button>)}</div>}
-        <div className="recent-list">{recent.length ? recent.map(post => <PostCard key={post.slug} post={post} />) : <div className="quiet-empty"><BookOpen size={25} /><p>{posts.length ? '这个分类正在酝酿新的文字。' : '第一篇文字，正在酝酿。'}</p></div>}</div>
+        <div className="recent-list">{recent.length ? recent.map(post => <PostCard key={post.slug} post={post} />) : <div className="quiet-empty"><BookOpen size={25} /><p>第一篇文字，正在酝酿。</p></div>}</div>
         {posts.length > 0 && <Link className="all-posts-link" to="/posts/">去文章里逛逛<ArrowRight size={16} /></Link>}
       </section>
       <aside className="home-sidebar">

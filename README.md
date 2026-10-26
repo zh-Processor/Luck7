@@ -46,7 +46,7 @@ npm run preview
 
 ```bash
 npm run new:post -- --title "我的第一篇文章" --slug my-first-post
-npm run new:post -- --title "一段新的思考" --slug a-new-thought --category 随想
+npm run new:post -- --title "一段新的思考" --slug a-new-thought --tags "随想,日常"
 ```
 
 命令创建 `content/posts/<slug>.md`，按 Asia/Shanghai 日期填写 `date`，默认 `draft: true`、`sample: false`、`comments: true`。已有同名文件时会报错，不覆盖原内容。`slug` 使用小写英文、数字及分隔用短横线，不能使用 Windows 保留文件名。
@@ -59,7 +59,6 @@ title: 我的第一篇文章
 slug: my-first-post
 date: '2026-10-23'
 description: 用一句话概括文章内容。
-category: 随想
 tags: [生活, 思考]
 cover: window
 featured: false
@@ -97,7 +96,7 @@ npm run dev:drafts
 
 图片放在 `public/images/`，正文使用 `![图片说明](/images/name.jpg)`。站内链接使用 `/posts/文章slug/`；项目会处理 GitHub Pages 仓库子路径，不要在内容里重复添加仓库前缀。
 
-内置封面类型为 `landscape`、`autumn`、`code`、`music`、`window`。分类与标签从实际文章自动生成。
+内置封面类型为 `landscape`、`autumn`、`code`、`music`、`window`。标签从实际文章自动生成，并显示在文章卡片上；点击标签可筛选文章。
 
 ### 新增公开碎碎念
 
@@ -142,7 +141,7 @@ npm run new:note -- --text "另一条记录。" --mood 随想
 
 - 暖纸色、暮色夜间主题，系统配色、字号和减少动态的偏好记忆。
 - 原创 SVG 书房、Q 版小安、猫与灯光；角色可关闭，点击可读一句原创短句。
-- 文章全文搜索、分类、标签、年份筛选、分页与全站搜索（`Ctrl/⌘ K`）。
+- 文章全文搜索、标签与年份筛选、分页与全站搜索（`Ctrl/⌘ K`）。
 - 自动目录、阅读进度、专注模式、字号调节、代码复制、图片查看、分享链接、相邻及相关文章。
 - 作者碎碎念时间线、Markdown 关于页、友链与本站名片复制。
 - GitHub Discussions / giscus 评论配置、全站及单篇开关、按需载入与失败重试。

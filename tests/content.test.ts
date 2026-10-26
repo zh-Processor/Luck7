@@ -17,7 +17,7 @@ const render = (body: string) => renderToStaticMarkup(createElement(StaticRouter
 describe('published Markdown content', () => {
   it('reads BOM/CRLF files, Windows paths, defaults, and distinct trimmed tags', () => {
     const post = parsePost(`\uFEFF${article({ tags: ['音乐', '  日常 ', '音乐'], comments: false }).replace(/\n/g, '\r\n')}`, 'F:\\blog\\content\\a-good-day.md');
-    expect(post).toMatchObject({ slug: 'a-good-day', title: '安静的文字', category: '随想', comments: false, tags: ['音乐', '日常'], minutes: 1 });
+    expect(post).toMatchObject({ slug: 'a-good-day', title: '安静的文字', comments: false, tags: ['音乐', '日常'], minutes: 1 });
   });
 
   it('rejects invalid publishing fields instead of silently coercing them', () => {

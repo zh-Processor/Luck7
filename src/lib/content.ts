@@ -8,7 +8,6 @@ export interface Post {
   slug: string;
   title: string;
   description: string;
-  category: string;
   tags: string[];
   date: string;
   updated?: string;
@@ -54,7 +53,7 @@ export function parsePost(raw: string, filename: string, options: PostOptions = 
   if (!body) fail('已发布文章的正文不能为空');
   return {
     slug, title, description: text('description'),
-    category: text('category', '随想'), tags: [...new Set((data.tags as string[] | undefined || []).map(tag => tag.trim()))],
+    tags: [...new Set((data.tags as string[] | undefined || []).map(tag => tag.trim()))],
     date, updated,
     cover: text('cover', 'landscape'),
     minutes: Math.max(1, Math.ceil(readingText(markdownParser.parse(body) as MarkdownNode).length / 450)),
@@ -102,15 +101,14 @@ const files = import.meta.glob('../../content/posts/*.md', { query: '?raw', impo
 // "drafts" must still exclude private drafts from every generated route/feed.
 export const isDraftPreview = import.meta.env.DEV && import.meta.env.MODE === 'drafts';
 export const posts = collectPosts(files, { includeDrafts: isDraftPreview });
-export const categories = ['全部', ...new Set(posts.map(p => p.category))];
 export const tags = [...new Set(posts.flatMap(p => p.tags))];
 export const featured = posts.find(p => p.featured) || posts[0];
 
-export function filterPosts(query = '', category = '全部', tag = '', year = '') {
+export function filterPosts(query = '', tag = '', year = '') {
   const terms = query.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
   return posts.filter(post => {
     const searchable = `${post.title} ${post.description} ${post.tags.join(' ')} ${post.body}`.toLocaleLowerCase();
-    return (category === '全部' || post.category === category) && (!tag || post.tags.includes(tag)) && (!year || post.date.startsWith(year)) && terms.every(term => searchable.includes(term));
+    return (!tag || post.tags.includes(tag)) && (!year || post.date.startsWith(year)) && terms.every(term => searchable.includes(term));
   });
 }
 

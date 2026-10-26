@@ -3,7 +3,6 @@ title: 让代码，也有一点温度
 slug: make-interfaces-feel-kind
 description: 从一个按钮的反馈，到一个让人安心的空白状态。
 date: '2026-10-21'
-category: 技术笔记
 tags: [前端, 设计, 用户体验]
 cover: code
 sample: true

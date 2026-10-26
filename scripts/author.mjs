@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { isSeq, parseDocument, stringify } from 'yaml';
 
 export const usage = `用法：
-  node scripts/author.mjs post --title "文章标题" --slug my-post [--category 随想]
+  node scripts/author.mjs post --title "文章标题" --slug my-post [--tags "随想,日常"]
   node scripts/author.mjs note --text "公开的碎碎念内容" [--mood 日常]
 
 文章始终创建为草稿；请编辑完成后将 draft 改为 false，再构建发布。
@@ -43,7 +43,7 @@ export function parseAuthorArgs(argv) {
   const [command, ...rest] = argv;
   if (!['post', 'note'].includes(command)) throw new Error(`未知命令「${command}」，请使用 post 或 note。`);
   if (rest.length === 1 && ['--help', '-h'].includes(rest[0])) return { help: true };
-  const accepted = command === 'post' ? ['title', 'slug', 'category'] : ['text', 'mood'];
+  const accepted = command === 'post' ? ['title', 'slug', 'tags'] : ['text', 'mood'];
   const values = {};
   for (let index = 0; index < rest.length; index++) {
     const argument = rest[index];
@@ -81,11 +81,11 @@ export async function createPost(input, options = {}) {
   const title = requiredText(input?.title, '文章标题');
   const slug = requiredText(input?.slug, '文章 slug');
   if (!slugPattern.test(slug) || slug.length > 100 || reservedFilename.test(slug)) throw new Error('slug 需要 1 至 100 个小写英文字母、数字或分隔用短横线，且不能使用 Windows 保留文件名。');
-  const category = input?.category === undefined ? '随想' : requiredText(input.category, '文章分类');
+  const tags = input?.tags === undefined ? [] : [...new Set(requiredText(input.tags, '文章标签').split(/[,，]/).map(tag => tag.trim()).filter(Boolean))];
   const date = formatShanghaiDate(options.now ?? new Date());
   const path = resolve(cwd, 'content', 'posts', `${slug}.md`);
   await mkdir(dirname(path), { recursive: true });
-  const content = `---\n${stringify({ title, slug, date, category, tags: [], draft: true, sample: false, comments: true })}---\n\n## 从这里开始\n\n<!-- 在这里写下正文。完成后将上方 draft 改为 false，再构建发布。 -->\n`;
+  const content = `---\n${stringify({ title, slug, date, tags, draft: true, sample: false, comments: true })}---\n\n## 从这里开始\n\n<!-- 在这里写下正文。完成后将上方 draft 改为 false，再构建发布。 -->\n`;
   const temporary = await writeTemporary(path, content);
   try { await link(temporary, path); }
   catch (error) {

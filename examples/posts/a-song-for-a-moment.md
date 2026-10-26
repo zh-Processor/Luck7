@@ -3,7 +3,6 @@ title: 有些心情，适合交给一首歌
 slug: a-song-for-a-moment
 description: 文字说不清的时刻，按下播放，也是一种表达。
 date: '2026-10-15'
-category: 随想
 tags: [音乐, 许嵩, 心情]
 cover: music
 sample: true

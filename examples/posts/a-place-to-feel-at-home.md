@@ -3,7 +3,6 @@ title: 给自己，留一处心安之地
 slug: a-place-to-feel-at-home
 description: 关于这个博客，关于文字、音乐，和那些值得被记住的小事。
 date: '2026-10-23'
-category: 随想
 tags: [博客, 生活, 音乐]
 cover: landscape
 featured: true

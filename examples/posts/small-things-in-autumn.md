@@ -3,7 +3,6 @@ title: 在忙碌的间隙，认真生活
 slug: small-things-in-autumn
 description: 散步、晚霞和一杯热茶，都是日常给的小小回信。
 date: '2026-10-19'
-category: 生活手记
 tags: [日常, 散步, 秋天]
 cover: autumn
 sample: true
